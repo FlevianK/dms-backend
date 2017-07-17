@@ -1,0 +1,36 @@
+{
+  "/roles(/*)?": {
+    "get": [
+      "admin"
+    ],
+    "post": [
+      "admin"
+    ],
+    "delete": [
+      "admin"
+    ],
+    "put": [
+      "admin"
+    ]
+  },
+  "/search/roles(/*)?": {
+    "get": [
+      "admin"
+    ]
+  },
+  "/users": {
+    "get": [
+      "admin"
+    ]
+  },
+  "/users(/*)?": {
+    "delete": [
+      "admin"
+    ]
+  },
+  "/search/users(/*)?": {
+    "get": [
+      "admin"
+    ]
+  }
+}
