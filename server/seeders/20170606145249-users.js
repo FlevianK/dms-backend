@@ -14,6 +14,15 @@ module.exports = {
         title: "admin",
         createdAt: new Date(),
         updatedAt: new Date(),
+      }, {
+        username: 'regular',
+        firstName: 'regular',
+        lastName: 'regular',
+        password: bcrypt.hashSync('regular', salt),
+        email: 'regular@live.com',
+        title: "regular",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ]);
   },
