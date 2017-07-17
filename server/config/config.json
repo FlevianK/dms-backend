@@ -18,20 +18,14 @@
     "logging": false
   },
   "production": {
-    "username": "fleviankanaiza",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "port": 5432,
-    "dialect": "postgres",
-    "logging": false
-  },
-  "staging": {
-    "host": "ec2-184-73-249-56.compute-1.amazonaws.com",
+    "use_env_variable": "DATABASE_URL",
     "port": "5432",
-    "username": "dkrowhnptqhygh",
-    "database": "d85qh0rpvvgf98",
-    "password": "d72820da416ed999799a8df363fe3e05c08522aeec23da2ccb095d2c9a5bd4c2",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true
+      }
+    },
     "dialect": "postgres"
   }
 }
