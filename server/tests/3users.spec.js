@@ -5,7 +5,7 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const should = chai.should();
 const chaiHttp = require('chai-http');
-chai.use(chaiHttp)
+chai.use(chaiHttp);
 
 describe('Users', () => {
   let token= '';
@@ -198,7 +198,7 @@ describe('Users', () => {
     });
   });
 
-  describe('/PUt', () => {
+  describe('/PUT', () => {
     it('should return a 401 when updating admin details', (done) => {
       chai.request(app)
         .put('/api/users/1')

@@ -28,7 +28,8 @@ describe('Roles', () => {
         .post('/api/roles')
         .set('x-access-token', token)
         .send({
-          title: "guest"
+          title: "guest",
+          description: "guest role"
         })
         .end((err, res) => {
           res.should.have.status(201);
@@ -42,7 +43,8 @@ describe('Roles', () => {
         .post('/api/roles')
         .set('x-access-token', token)
         .send({
-          title: "fellow"
+          title: "fellow",
+          description: "fellow role"
         })
         .end((err, res) => {
           res.should.have.status(201);
@@ -57,7 +59,8 @@ describe('Roles', () => {
         .post('/api/roles')
         .set('x-access-token', token)
         .send({
-          te: "fellow"
+          te: "fellow",
+          description: "fellow"
         })
         .end((err, res) => {
           res.should.have.status(400);
@@ -115,7 +118,7 @@ describe('Roles', () => {
   describe('/DELETE', () => {
     it('should return a 204 response delete an existing role that is not admin', (done) => {
       chai.request(app)
-        .delete('/api/roles/fellow')
+        .delete('/api/roles/3')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('x-access-token', token)
         .end((err, res) => {
@@ -128,7 +131,7 @@ describe('Roles', () => {
   describe('/DELETE', () => {
     it('should return a 404 response when deleting a role does not exist', (done) => {
       chai.request(app)
-        .delete('/api/roles/fellow')
+        .delete('/api/roles/46')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('x-access-token', token)
         .end((err, res) => {
@@ -139,9 +142,22 @@ describe('Roles', () => {
   });
 
   describe('/DELETE', () => {
-    it('should return a 401 response when deleting an admin role', (done) => {
+    it('should return a 400 response when deleting role using incoorrect datatype', (done) => {
       chai.request(app)
-        .delete('/api/roles/admin')
+        .delete('/api/roles/sdjgh')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+  });
+
+  describe('/DELETE', () => {
+    it('should return a 401 response when deleting a default role admin', (done) => {
+      chai.request(app)
+        .delete('/api/roles/1')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('x-access-token', token)
         .end((err, res) => {
@@ -150,11 +166,10 @@ describe('Roles', () => {
         });
     });
   });
-
   describe('/DELETE', () => {
-    it('should return a 401 response when deleting a default role', (done) => {
+    it('should return a 401 response when deleting a default role regular', (done) => {
       chai.request(app)
-        .delete('/api/roles/regular')
+        .delete('/api/roles/2')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('x-access-token', token)
         .end((err, res) => {
@@ -212,6 +227,129 @@ describe('Roles', () => {
     it('it should return 404 searching roles who does not exist exist while paginating the result ', (done) => {
       chai.request(app)
         .get('/api/search/roles/?q=MCA&limit=5&offset=0')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.should.have.status(404);
+          done();
+        });
+    });
+  });
+  describe('/PUT', () => {
+    it('should return a 200 response when updating role details', (done) => {
+      chai.request(app)
+        .put('/api/roles/4')
+        .set('x-access-token', token)
+        .send({
+          title: "facilitator"
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+  describe('/PUT', () => {
+    it('should return a 400 when updating using wrong time role id', (done) => {
+      chai.request(app)
+        .put('/api/roles/kjhgf')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', token)
+        .send({
+          title: "fel"
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+  });
+  describe('/PUT', () => {
+    it('should return a 401 when updating default roles admin details', (done) => {
+      chai.request(app)
+        .put('/api/roles/1')
+        .set('x-access-token', token)
+        .send({
+          title: "fello"
+        })
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
+    });
+  });
+  describe('/PUT', () => {
+    it('should return a 401 when updating default role regular details', (done) => {
+      chai.request(app)
+        .put('/api/roles/2')
+        .set('x-access-token', token)
+        .send({
+          title: "fello"
+        })
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
+    });
+  });
+  describe('/PUT', () => {
+    it('should return a 400 when updating using role that exists', (done) => {
+      chai.request(app)
+        .put('/api/roles/4')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', token)
+        .send({
+          title: "admin"
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+  });
+  describe('/PUT', () => {
+    it('should return a 404 response when updating role that does not exist', (done) => {
+      chai.request(app)
+        .put('/api/roles/80')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', token)
+        .send({
+          title: "fello"
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+          done();
+        });
+    });
+  });
+  describe('/GET/:id user', () => {
+    it('it should return 400 retreving a user using bad request', (done) => {
+      chai.request(app)
+        .get('/api/users/uy')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+  });
+  describe('/GET/:roleId', () => {
+    it('it should return 200 when fetching an existing role by the given id', (done) => {
+      chai.request(app)
+        .get('/api/roles/4')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('description');
+          res.body.should.have.property('title');
+          done();
+        });
+    });
+  });
+  describe('/GET/:roleId', () => {
+    it('it should return 404 when fetching a non existing role by the given id', (done) => {
+      chai.request(app)
+        .get('/api/roles/90')
         .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(404);

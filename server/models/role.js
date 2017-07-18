@@ -4,7 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
+      unique: true
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
     }
   });
   return Role;

@@ -61,12 +61,20 @@ module.exports = {
           .findAll({
             offset: req.query.offset,
             limit: req.query.limit,
+            where: {
+              $or: {
+                userId: req.decoded.userId,
+                access: {
+                  $or: {
+                    $iLike: 'public',
+                    $eq: req.decoded.userRole
+                  }
+                }
+              }
+            },
             include: [{
               model: User
-            }],
-            where: {
-              access: 'public' || req.decoded.userRole
-            }
+            }]
           })
           .then(document => {
             if (!document || document.length < 1) {
@@ -81,7 +89,15 @@ module.exports = {
       return Document
         .findAll({
           where: {
-            access: 'public' || req.decoded.userRole
+            $or: {
+              userId: req.decoded.userId,
+              access: {
+                $or: {
+                  $iLike: 'public',
+                  $eq: req.decoded.userRole
+                }
+              }
+            }
           }
         })
         .then(document => {
@@ -132,7 +148,7 @@ module.exports = {
           })
           .then(() => res.status(200).send({
             message: "Updated successful"
-          })) 
+          }))
           .catch((error) => res.status(400).send(error));
       })
       .catch((error) => res.status(400).send(error));
@@ -174,6 +190,7 @@ module.exports = {
               $or: [
                 { title: { $iLike: `%${req.query.q}%` } },
                 { content: { $iLike: `%${req.query.q}%` } },
+                { access: { $iLike: `%${req.query.q}%` } },
               ]
             }
           })
@@ -194,8 +211,9 @@ module.exports = {
                 $or: [
                   { title: { $iLike: `%${req.query.q}%` } },
                   { content: { $iLike: `%${req.query.q}%` } },
+                  { access: { $iLike: `%${req.query.q}%` } },
                 ]
-              }
+              },
             })
             .then(document => {
               if (!document || document.length < 1) {
@@ -214,16 +232,35 @@ module.exports = {
           .findAll({
             offset: req.query.offset,
             limit: req.query.limit,
+            where: {
+              $or: [
+                {
+                  userId: req.decoded.userId,
+                  access: {
+                    $or: {
+                      $iLike: 'public',
+                      $eq: req.decoded.userRole
+                    }
+                  },
+                  title: { $iLike: `%${req.query.q}%` },
+                },
+                {
+                  userId: req.decoded.userId,
+                  access: {
+                    $or: {
+                      $iLike: 'public',
+                      $eq: req.decoded.userRole
+                    }
+                  },
+                  content: {
+                    $iLike: `%${req.query.q}%`
+                  },
+                }
+              ]
+            },
             include: [{
               model: User
-            }],
-            where: {
-              access: 'public' || req.decoded.userRole,
-              $or: [
-                { title: { $iLike: `%${req.query.q}%` } },
-                { content: { $iLike: `%${req.query.q}%` } }
-              ]
-            }
+            }]
           })
           .then(document => {
             if (!document || document.length < 1) {
@@ -239,12 +276,31 @@ module.exports = {
         return Document
           .findAll({
             where: {
-              access: 'public' || req.decoded.userRole,
               $or: [
-                { title: { $iLike: `%${req.query.q}%` } },
-                { content: { $iLike: `%${req.query.q}%` } }
+                {
+                  userId: req.decoded.userId,
+                  access: {
+                    $or: {
+                      $iLike: 'public',
+                      $eq: req.decoded.userRole
+                    }
+                  },
+                  title: { $iLike: `%${req.query.q}%` },
+                },
+                {
+                  userId: req.decoded.userId,
+                  access: {
+                    $or: {
+                      $iLike: 'public',
+                      $eq: req.decoded.userRole
+                    }
+                  },
+                  content: {
+                    $iLike: `%${req.query.q}%`
+                  },
+                }
               ]
-            }
+            },
           })
           .then(document => {
             if (!document || document.length < 1) {
@@ -294,7 +350,7 @@ module.exports = {
         return res.status(200).send(document);
       })
       .catch((error) => {
-        res.status(400).send(error)
+        res.status(400).send(error);
       });
   },
 

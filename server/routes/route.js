@@ -31,6 +31,8 @@ module.exports = (app) => {
 
   app.post('/api/roles/', rolesController.create);
   app.get('/api/roles/', rolesController.list);
+  app.get('/api/roles/:roleId', rolesController.retrieve);
+  app.put('/api/roles/:roleId', rolesController.update);
   app.delete('/api/roles/:roleId', rolesController.destroy);
   app.get('/api/search/roles/', rolesController.searchRole);
 

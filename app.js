@@ -20,7 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-require('./server/routes/route')(app);
+// require('./server/routes/route')(app);
 
 app.listen(port);
 module.exports = app;

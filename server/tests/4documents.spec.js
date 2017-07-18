@@ -15,7 +15,7 @@ describe('Documents for regular test', () => {
       .post('/api/users/login')
       .send({
         email: "regular@gmail.com",
-        password: "regular"
+        password: "regularW6t3@"
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -138,7 +138,7 @@ describe('Documents for regular test', () => {
   describe('/GET/search/documents/?q={}', () => {
     it('it should 404 response and data when searching documents that does not exist while paginating', (done) => {
       chai.request(app)
-        .get('/api/search/documents/?q=topping%20Quebeq&limit=6&offset=0')
+        .get('/api/search/documents/?q=Toolkjj&limit=6&offset=0')
         .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(404);
@@ -153,6 +153,17 @@ describe('Documents for regular test', () => {
         .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(400);
+          done();
+        });
+    });
+  });
+  describe('/GET/search/documents/?q={}', () => {
+    it('it should 404 response when searching a document that does not exist', (done) => {
+      chai.request(app)
+        .get('/api/search/documents/?q=Toolkjj&limit=6&offset=0')
+        .set('x-access-token', token)
+        .end((err, res) => {
+          res.should.have.status(404);
           done();
         });
     });
