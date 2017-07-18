@@ -72,7 +72,7 @@
     "redux-thunk": "^2.2.0",
     "rest-bac": "^1.0.0",
     "sass-loader": "^6.0.6",
-    "sequelize": "^4.3.2",
+    "sequelize": "^3.30.4",
     "sequelize-cli": "^2.7.0",
     "start-server-webpack-plugin": "^2.2.0",
     "style-loader": "^0.18.2",
