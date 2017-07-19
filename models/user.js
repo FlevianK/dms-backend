@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       required: true,
+      default: 'regular',
     },
   }, {
     classMethods: {

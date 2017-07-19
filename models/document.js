@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     access: {
       type: DataTypes.STRING,
       required: true,
-      default: 'public',
+      defaultValue: 'public',
     },
     userId: {
       type: DataTypes.INTEGER,
