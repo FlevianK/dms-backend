@@ -8,7 +8,7 @@ require('dotenv').config();
 // Set up the express app
 const port = process.env.PORT || 3000;
 const app = express();
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV  || 'production';
 
 // const compiler = webpack(config);
 app.set('port', port);
@@ -20,7 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// require('./server/routes/route')(app);
+require('./server/routes/route')(app);
 
 app.listen(port);
 module.exports = app;

@@ -6,11 +6,12 @@
   "scripts": {
     "client-test": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./client/utils/config.js -R spec ./client/tests/**",
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
-    "start": "nodemon app.js",
-    "postinstall": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
+    "start": "webpack-dev-server",
+    "compile": "webpack",
     "server-test": "NODE_ENV=test npm run migrate && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -R spec server/tests",
-    "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate:undo:all && sequelize db:migrate",
-    "test": "npm run server-test && npm run client-test",
+    "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
+    "test": "npm run client-test && npm run server-test",
+    "postinstall": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "engines": {
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/FlevianK/cp2-document-management-system#readme",
   "dependencies": {
+    "aglio": "^2.3.0",
     "axios": "^0.16.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
