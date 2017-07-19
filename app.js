@@ -8,7 +8,7 @@ require('dotenv').config();
 // Set up the express app
 const port = process.env.PORT || 3000;
 const app = express();
-const env = process.env.NODE_ENV  || 'production';
+const env = process.env.NODE_ENV  || 'development';
 
 // const compiler = webpack(config);
 app.set('port', port);
