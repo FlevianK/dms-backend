@@ -9,15 +9,15 @@ module.exports = {
     const emailRegex = /\S+@\S+\.\S+/;
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/;
     if (!req.body.email) {
-      return res.status(403).send({ // forbidden request
+      return res.status(403).send({ 
         message: 'Email is required',
       });
     } else if (!emailRegex.test(req.body.email)) {
-      return res.status(403).send({ // forbidden request
+      return res.status(403).send({ 
         message: 'Incorrect email format',
       });
     } else if (!req.body.password) {
-      return res.status(403).send({ // forbidden request
+      return res.status(403).send({ 
         message: 'Password is required',
       });
     }
@@ -51,15 +51,12 @@ module.exports = {
               success: true,
               message: 'Login successful!',
               token: token,
-              userRole: user.title || 'undefined',
+              userRole: user.title,
               userId: user.id
             });
           });
         }
-
-
-      })
-      .catch(error => res.status(400).send(error));
+      });
   },
 
   verifyLogin(req, res, next) {
@@ -79,7 +76,7 @@ module.exports = {
     } else {
       return res.status(403).send({
         success: false,
-        message: 'No token provided. now'
+        message: 'No token provided now'
       });
     }
   },
@@ -91,7 +88,7 @@ module.exports = {
   },
 
   roleUnauthorise(err, req, res, next) {
-    res.status(err.status || 403);
+    res.status(err.status || 401);
     res.json({
       message: err.message
     });

@@ -40,17 +40,16 @@ module.exports = {
     }
     return Role
       .findAll()
-      .then(role => res.status(200).send(role))
-      .catch(error => res.status(400).send(error));
+      .then(role => res.status(200).send(role));
   },
 
   destroy(req, res) {
     if (req.params.roleId == 1) {
-      return res.status(401).send({
+      return res.status(403).send({
         message: 'Can not delete default role admin',
       });
     } else if (req.params.roleId == 2) {
-      return res.status(401).send({
+      return res.status(403).send({
         message: 'Can not delete default role regualr',
       });
     }
@@ -64,8 +63,7 @@ module.exports = {
         }
         return role
           .destroy()
-          .then(() => res.status(204).send())
-          .catch(error => res.status(400).send(error));
+          .then(() => res.status(204).send());
       })
       .catch(error => res.status(400).send(error));
   },
@@ -110,8 +108,7 @@ module.exports = {
             });
           }
           return res.status(200).send(role);
-        })
-        .catch(error => res.status(400).send(error));
+        });
     }
   },
   retrieve(req, res) {
@@ -130,11 +127,11 @@ module.exports = {
 
   update(req, res) {
     if (req.params.roleId == 1) {
-      return res.status(401).send({ // forbidden request
+      return res.status(403).send({ // forbidden request
         message: 'Can not update default role admin',
       });
     } else if(req.params.roleId == 2) {
-      return res.status(401).send({ // forbidden request
+      return res.status(403).send({ // forbidden request
         message: 'Can not update default role regular',
       });
     }

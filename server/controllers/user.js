@@ -33,7 +33,7 @@ module.exports = {
       .then(() => res.status(201).send({
         message: 'Registered successfully',
       }))
-      .catch(error => res.status(400).send({
+      .catch(error => res.status(409).send({
         message: 'Email exist',
       }));
   },
@@ -59,7 +59,6 @@ module.exports = {
     return User
       .findAll()
       .then(users => res.status(200).send(users))
-      .catch(error => res.status(400).send(error));
   },
 
   retrieve(req, res) {
@@ -124,8 +123,7 @@ module.exports = {
         }
         return user
           .destroy()
-          .then(() => res.status(204).send())
-          .catch(error => res.status(400).send(error));
+          .then(() => res.status(204).send());
       })
       .catch(error => res.status(400).send(error));
   },
@@ -174,8 +172,7 @@ module.exports = {
             });
           }
           return res.status(200).send(user);
-        })
-        .catch(error => res.status(400).send(error));
+        });
     }
   }
 };

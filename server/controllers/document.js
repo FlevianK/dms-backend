@@ -18,8 +18,7 @@ module.exports = {
       })
       .then(() => res.status(201).send({
         message: 'Created successful',
-      }))
-      .catch(error => res.status(400).send(error));
+      }));
   },
 
   listDocs(req, res) {
@@ -53,8 +52,7 @@ module.exports = {
             });
           }
           return res.status(200).send(document);
-        })
-        .catch(error => res.status(400).send(error));
+        });
     } else {
       if (req.query.limit || req.query.offset) {
         return Document
@@ -107,8 +105,7 @@ module.exports = {
             });
           }
           return res.status(200).send(document);
-        })
-        .catch(error => res.status(400).send(error));
+        });
     }
   },
 
@@ -149,7 +146,6 @@ module.exports = {
           .then(() => res.status(200).send({
             message: "Updated successful"
           }))
-          .catch((error) => res.status(400).send(error));
       })
       .catch((error) => res.status(400).send(error));
   },
@@ -170,8 +166,7 @@ module.exports = {
         }
         return document
           .destroy()
-          .then(() => res.status(204).send())
-          .catch(error => res.status(400).send(error));
+          .then(() => res.status(204).send());
       })
       .catch(error => res.status(400).send(error));
   },
@@ -222,8 +217,7 @@ module.exports = {
                 });
               }
               return res.status(200).send(document);
-            })
-            .catch(error => res.status(400).send(error));
+            });
         }
       }
     } else {
@@ -309,8 +303,7 @@ module.exports = {
               });
             }
             return res.status(200).send(document);
-          })
-          .catch(error => res.status(400).send(error));
+          });
       }
     }
   },
@@ -390,7 +383,6 @@ module.exports = {
           });
         }
         return res.status(200).send(document);
-      })
-      .catch(error => res.status(400).send(error));
+      });
   }
 };
