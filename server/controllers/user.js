@@ -28,7 +28,6 @@ module.exports = {
         lastName: req.body.lastName,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, salt),
-        title: "regular",
       })
       .then(() => res.status(201).send({
         message: 'Registered successfully',

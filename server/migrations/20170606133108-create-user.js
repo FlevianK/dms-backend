@@ -41,6 +41,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
         onDelete: 'CASCADE',
+        default: 'regular',
         references: {
           model: 'Roles',
           key: 'title',

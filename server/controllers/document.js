@@ -4,7 +4,7 @@ const InputValidate = require('./inputValidate');
 
 module.exports = {
   create(req, res) {
-    if (InputValidate.validateInput(req.body)) {
+    if (InputValidate.validateInput(req.body.title && req.body.content)) {
       return res.status(403).json({ // forbidden request
         message: 'Fill all fields',
       });
