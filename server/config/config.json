@@ -18,13 +18,13 @@
     "logging": false
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
+    "use_env_variable": "HEROKU_POSTGRESQL_OLIVE_URL",
     "port": "5432",
     "ssl": true,
     "dialectOptions": {
       "ssl": {
         "require": true
-      }
+      } 
     },
     "dialect": "postgres"
   }
