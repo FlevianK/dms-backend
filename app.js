@@ -3,13 +3,15 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+const env = process.env.NODE_ENV;
 
 // Set up the express app
 const port = process.env.PORT || 3000;
 const app = express();
-const env = process.env.NODE_ENV  || 'development';
 
+if (env !== 'production') {
+  require('dotenv').load();
+}
 // const compiler = webpack(config);
 app.set('port', port);
 // Log requests to the console.
